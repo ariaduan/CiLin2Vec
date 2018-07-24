@@ -4,10 +4,10 @@ import gensim
 import sys
 import importlib
 importlib.reload(sys)
-model = gensim.models.Word2Vec.load('../models/web_wiki_cb_3.model')#replace this file with the one you want to use
+model = gensim.models.Word2Vec.load('../models/cb_cilin_def_palin_3.model')#replace this file with the one you want to use
 
 file1 = open('../files/MC_words_pairs','rb')
-fileout = open('../results/simi_MC_web_wiki_cb_3','w',encoding = 'utf-8')#replace this file in correspondence with the name of file1
+fileout = open('../results/simi_MC_cb_cilin_def_palin_3','w',encoding = 'utf-8')#replace this file in correspondence with the name of file1
 
 y = []
 
