@@ -84,7 +84,6 @@ for model in models:
     
     print(corrcoef(x,y))
     
-    file1.close()
     WS_sem2.close()
     WS_sem1.close()
     WS_pairs.close()
