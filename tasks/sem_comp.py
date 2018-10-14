@@ -55,7 +55,7 @@ for model in models:
         cnt += 1
     
     print(scores/cnt)
-    fileout.write("all:\t" + str(scores/cnt))
+    fileout.write("all:\t" + str(scores/cnt) + '\n')
     
     fileout.close()
     cilin.close()
