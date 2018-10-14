@@ -33,11 +33,6 @@ for model in models:
 	anal = open('../files/anal_cilin','rb')
 	fileout = open('../results/anal_' + model,'w',encoding = 'utf-8')#keep the name of this file in correspondence with the name of file1
 	
-	for 
-	
-	bank = []
-	vec = []
-	
 	scores = 0.0
 	cnt = 0
 	for line in anal:
