@@ -13,3 +13,7 @@ We provide codes for three NLP tasks in "tasks" directory. They are: semantic co
       
       αi+1 = αi * 0.5     (1)
       αi+1 = αi * 2       (2)
+      
+For *analogy* task, run the following commends under *"tasks"* directory. Add all the models you want to evaluate by appending "--models [model name]"at the end of the commend.
+
+      *python3 anal.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
