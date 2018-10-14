@@ -15,21 +15,22 @@ We provide codes for three NLP tasks in "tasks" directory. They are: semantic co
       αi+1 = αi * 2       (2)
       
 For *composition* task, run the following commends under *"tasks"* directory. Add all the models you want to evaluate by appending "--models [model name]"at the end of the commend. The evaluation score will be shown in order on the command window and the details will be documented in *"sem/resem_comp_(model)"* in *"results"* directory.
-
-      *python3 sem_comp.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
-      *python3 resem_comp.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
-      
+```
+      python3 sem_comp.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5
+      python3 resem_comp.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5
+```
 For *analogy* task, run the following commends under *"tasks"* directory. Add all the models you want to evaluate by appending "--models [model name]"at the end of the commend. The evaluation score will be shown in order on the command window and the details will be documented in *"(sem/resem_)anal_(model)"* in *"results"* directory.
-
-      *python3 anal.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
-      *python3 sem_anal.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
-      *python3 resem_anal.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
-
+```
+      python3 anal.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5
+      python3 sem_anal.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5
+      python3 resem_anal.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5
+```
 For *similarity* task, run the following commends under *"tasks"* directory. Add all the models you want to evaluate by appending "--models [model name]"at the end of the commend. The evaluation score will be shown in order on the command window and the details will be documented in *"(sem/resem_)simi_MC/WS_(model)"* in *"results"* directory.
-
-      *python3 simi_MC.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
-      *python3 sem_simi_MC.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
-      *python3 resem_simi_MC.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
-      *python3 simi_WS.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
-      *python3 sem_simi_WS.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
-      *python3 resem_simi_WS.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5*
+```
+      python3 simi_MC.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5
+      python3 sem_simi_MC.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5
+      python3 resem_simi_MC.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5
+      python3 simi_WS.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5
+      python3 sem_simi_WS.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5
+      python3 resem_simi_WS.py --models cb_cilin_def_palin_3 --models sg_cilin_def_palin_2010_5
+```
