@@ -1,5 +1,14 @@
+import gensim
+from gensim.test.utils import datapath
+from gensim.models import KeyedVectors
 import numpy as np
+import torch
+from argparse import ArgumentParser
 
+p = ArgumentParser()
+p.add_argument("--models", action = "append", type = str)
+args = p.parse_args()
+models = args.models
 
 def cos_sim(vector_a, vector_b):
     vector_a = np.mat(vector_a)
@@ -18,46 +27,35 @@ def multi_vec(vector_a,x):
     vector_a = np.mat(vector_a)
     return vector_a*x
 
+for model in models:
+    embeddings = KeyedVectors.load_word2vec_format(datapath(("../models/{}.model".format(model))), binary = True)
 
-file1 = open('../models/cb_cilin_def_palin_3.vector','rb')#replace this file with the one you want to use
-file2 = open('../files/cilin_hier_perword','rb')
-fileout = open('../results/sem_comp_cb_cilin_def_palin_3','w',encoding = 'utf-8')#replace this file in correspondence with the name of file1
-
-line1 = file1.readline()
-
-bank = []
-vec = []
-for line1 in file1:
-    line1 = line1.decode('utf-8')
-    tmp1 = line1.split()
-    bank.append(tmp1[0])
-    vec.append(list(map(float,tmp1[1:])))
-
-
-num = 0.0
-cnt = 0
-for line2 in file2:
-    line2 = line2.decode('utf-8')
-    tmp2 = line2.split()
-    word = tmp2[5]
-    sem = tmp2[:5]
-    length1 = len(sem)
-    semvec1 = np.mat(0)
-    for i in range(len(sem)):
-        ix = bank.index(sem[i])
-        tmp = multi_vec(vec[ix],1/(2**(i+1))) if (i != (len(sem)-1)) else multi_vec(vec[ix],1/(2**i))
-        semvec1 = semvec1 + np.mat(tmp)
-    idx = bank.index(word)
-    wordvec = np.mat(vec[idx])
-
-    total = cos_sim(wordvec,semvec1)
-    fileout.write(str(total) + ' ' + line2)
-
-    num += total
-    cnt += 1
-
-print(num/cnt)
-
-fileout.close()
-file1.close()
-file2.close()
+    cilin = open('../files/cilin_hier_perword','rb')
+    fileout = open('../results/sem_comp_' + model,'w',encoding = 'utf-8')
+    
+    scores = 0.0
+    cnt = 0
+    for line in cilin:
+        line = line.decode('utf-8').split()
+        word = line[5]
+        sem = line[:5]
+        length1 = len(sem)
+        semvec1 = np.mat(0)
+        for i in range(len(sem)):
+            tmp = multi_vec(embeddings[sem[i]],1/(2**(i+1))) if (i != (len(sem)-1)) else multi_vec(embeddings[sem[i]],1/(2**i))
+            semvec1 = semvec1 + np.mat(tmp)
+        wordvec = np.mat(embeddings[word])
+    
+        score = cos_sim(wordvec,semvec1)
+        for i in line:
+            fileout.write(i + '\t')
+        fileout.write(str(score) + '\n')
+    
+        scores += score
+        cnt += 1
+    
+    print(scores/cnt)
+    fileout.write("all:\t" + str(scores/cnt))
+    
+    fileout.close()
+    cilin.close()
