@@ -48,11 +48,11 @@ def corrcoef(x,y):
     return num/den
 
 for model in models:
-	embeddings = KeyedVectors.load_word2vec_format(datapath(("../models/{}.model".format(model))), binary = True)
-	MC_sem1 = open('../files/MC_sememes_1','rb')
-	MC_sem2 = open('../files/MC_sememes_2','rb')
-	MC_pairs = open('../files/MC_words_pairs','rb')
-	fileout = open('../results/resem_simi_MC_' + model,'w',encoding = 'utf-8')
+    embeddings = KeyedVectors.load_word2vec_format(datapath(("../models/{}.model".format(model))), binary = True)
+    MC_sem1 = open('../files/MC_sememes_1','rb')
+    MC_sem2 = open('../files/MC_sememes_2','rb')
+    MC_pairs = open('../files/MC_words_pairs','rb')
+    fileout = open('../results/resem_simi_MC_' + model,'w',encoding = 'utf-8')
     
     y = []
     score = []
@@ -83,6 +83,7 @@ for model in models:
     x = [0.98,0.96,0.96,0.94,0.925,0.9025,0.875,0.855,0.7775,0.77,0.7625,0.7425,0.7375,0.705,0.42,0.415,0.29,0.275,0.2375,0.2225,0.2175,0.21,0.1575,0.1375,0.105,0.105,0.0325,0.0275,0.02,0.02]
     
     print(corrcoef(x,y))
+    fileout.write(str(corrcoef(x,y)))
     
     MC_sem2.close()
     MC_sem1.close()
