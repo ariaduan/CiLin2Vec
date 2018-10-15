@@ -28,34 +28,33 @@ def multi_vec(vector_a,x):
     return vector_a*x
 
 for model in models:
-    embeddings = KeyedVectors.load_word2vec_format(datapath(("../models/{}.model".format(model))), binary = True)
+	embeddings = KeyedVectors.load_word2vec_format(datapath(("/Users/ariaduan1.0/Downloads/CiLin2vec-master-2/models/{}.vector".format(model))), binary = False)
+	#embeddings = gensim.models.Word2Vec.load('../models/' + model + '.model')
+	cilin = open('../files/cilin_hier_perword','rb')
+	fileout = open('../results/sem_comp_' + model,'w',encoding = 'utf-8')
+	scores = 0.0
+	cnt = 0
+	for line in cilin:
+		line = line.decode('utf-8').split()
+		word = line[5]
+		sem = line[:5]
+		length1 = len(sem)
+		semvec1 = np.mat(0)
+		for i in range(len(sem)):
+			tmp = multi_vec(embeddings[sem[i]],1/(2**(i+1))) if (i != (len(sem)-1)) else multi_vec(embeddings[sem[i]],1/(2**i))
+			semvec1 = semvec1 + np.mat(tmp)
+		wordvec = np.mat(embeddings[word])
 
-    cilin = open('../files/cilin_hier_perword','rb')
-    fileout = open('../results/sem_comp_' + model,'w',encoding = 'utf-8')
-    
-    scores = 0.0
-    cnt = 0
-    for line in cilin:
-        line = line.decode('utf-8').split()
-        word = line[5]
-        sem = line[:5]
-        length1 = len(sem)
-        semvec1 = np.mat(0)
-        for i in range(len(sem)):
-            tmp = multi_vec(embeddings[sem[i]],1/(2**(i+1))) if (i != (len(sem)-1)) else multi_vec(embeddings[sem[i]],1/(2**i))
-            semvec1 = semvec1 + np.mat(tmp)
-        wordvec = np.mat(embeddings[word])
-    
-        score = cos_sim(wordvec,semvec1)
-        for i in line:
-            fileout.write(i + '\t')
-        fileout.write(str(score) + '\n')
-    
-        scores += score
-        cnt += 1
-    
-    print(scores/cnt)
-    fileout.write("all:\t" + str(scores/cnt) + '\n')
-    
-    fileout.close()
-    cilin.close()
+		score = cos_sim(wordvec,semvec1)
+		for i in line:
+			fileout.write(i + '\t')
+		fileout.write(str(score) + '\n')
+
+		scores += score
+		cnt += 1
+
+	print(scores/cnt)
+	fileout.write("all:\t" + str(scores/cnt) + '\n')
+
+	fileout.close()
+	cilin.close()
