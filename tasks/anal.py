@@ -4,11 +4,14 @@ from gensim.models import KeyedVectors
 import numpy as np
 import torch
 from argparse import ArgumentParser
+from pathlib import Path
 
 p = ArgumentParser()
 p.add_argument("--models", action = "append", type = str)
+p.add_argument("--path", type = Path)
 args = p.parse_args()
 models = args.models
+path = args.path
 
 def cos_sim(vector_a, vector_b):
     vector_a = np.mat(vector_a)
@@ -29,7 +32,7 @@ def multi_vec(vector_a,x):
 
 
 for model in models:
-	embeddings = KeyedVectors.load_word2vec_format(datapath(("../models/{}.model".format(model))), binary = True)
+	embeddings = KeyedVectors.load_word2vec_format(datapath((path / "models/{}.vector".format(model))), binary = False)
 	anal = open('../files/anal_cilin','rb')
 	fileout = open('../results/anal_' + model,'w',encoding = 'utf-8')#keep the name of this file in correspondence with the name of file1
 	

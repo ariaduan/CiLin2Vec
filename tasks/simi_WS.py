@@ -1,17 +1,22 @@
+#coding:utf-8
 from math import sqrt
 import gensim
+from gensim.test.utils import datapath
 import sys
 import importlib
 importlib.reload(sys)
 from argparse import ArgumentParser
+from pathlib import Path
 
 p = ArgumentParser()
 p.add_argument("--models", action = "append", type = str)
+p.add_argument("--path", type = str)
 args = p.parse_args()
 models = args.models
+path = args.path
 
 for m in models:
-	model = gensim.models.Word2Vec.load('../models/' + m + '.model')
+	model = gensim.models.Word2Vec.load(path + "/models/{}.model".format(m))
 	WS_pairs = open('../files/WS_words_pairs','rb')
 	fileout = open('../results/simi_WS_' + m,'w',encoding = 'utf-8')
 	

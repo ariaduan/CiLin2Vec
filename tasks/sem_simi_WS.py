@@ -5,11 +5,14 @@ import numpy as np
 import torch
 from argparse import ArgumentParser
 from math import sqrt
+from pathlib import Path
 
 p = ArgumentParser()
 p.add_argument("--models", action = "append", type = str)
+p.add_argument("--path", type = Path)
 args = p.parse_args()
 models = args.models
+path = args.path
 
 
 def cos_sim(vector_a, vector_b):
@@ -48,7 +51,7 @@ def corrcoef(x,y):
     return num/den
 
 for model in models:
-    embeddings = KeyedVectors.load_word2vec_format(datapath(("../models/{}.model".format(model))), binary = True)
+    embeddings = KeyedVectors.load_word2vec_format(datapath((path / "models/{}.vector".format(model))), binary = False)
     WS_sem1 = open('../files/WS_sememes_1','rb')
     WS_sem2 = open('../files/WS_sememes_2','rb')
     WS_pairs = open('../files/WS_words_pairs','rb')
